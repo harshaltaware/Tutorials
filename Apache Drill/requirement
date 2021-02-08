@@ -1,0 +1,183 @@
+wget http://bitbucket.org/jmurty/jets3t/downloads/jets3t-0.9.2.zip
+cp jets3t-0.9.2.zip apache-drill-1.16.0/jars/3rdparty/
+hadoop credential create ssl.server.keystore.password -value 123 -provider localjceks://file/home/lmccay/aws.jceks
+
+
+{
+  "type": "file",
+  "connection": "s3a://<bucket_name>",
+  "config": {
+    "hadoop.security.credential.provider.path": "jceks://file/home/hadoop/s3.jceks",
+    "fs.s3a.impl.disable.cache": "true"
+  },
+  "workspaces": {
+    "tmp": {
+      "location": "s3://<bucket_name>/folder",
+      "writable": true,
+      "defaultInputFormat": null,
+      "allowAccessOutsideWorkspace": false
+    },
+    "root": {
+      "location": "s3://<bucket_name>/folder",
+      "writable": false,
+      "defaultInputFormat": null,
+      "allowAccessOutsideWorkspace": false
+    }
+  },
+  "formats": {
+    "psv": {
+      "type": "text",
+      "extensions": [
+        "tbl"
+      ],
+      "delimiter": "|"
+    },
+    "csv": {
+      "type": "text",
+      "extensions": [
+        "csv"
+      ],
+      "delimiter": ","
+    },
+    "tsv": {
+      "type": "text",
+      "extensions": [
+        "tsv"
+      ],
+      "delimiter": "\t"
+    },
+    "parquet": {
+      "type": "parquet"
+    },
+    "json": {
+      "type": "json",
+      "extensions": [
+        "json"
+      ]
+    },
+    "avro": {
+      "type": "avro"
+    },
+    "sequencefile": {
+      "type": "sequencefile",
+      "extensions": [
+        "seq"
+      ]
+    },
+    "csvh": {
+      "type": "text",
+      "extensions": [
+        "csvh"
+      ],
+      "extractHeader": true,
+      "delimiter": ","
+    }
+  },
+  "enabled": true
+}
+
+
+
+{
+  "type": "file",
+  "connection": "file:///",
+  "config": null,
+  "workspaces": {
+    "json_files": {
+      "location": "<local path>",
+      "writable": false,
+      "defaultInputFormat": "json",
+      "allowAccessOutsideWorkspace": false
+    }
+  },
+  "formats": null,
+  "enabled": true
+}
+
+{
+  "type": "file",
+  "connection": "classpath:///",
+  "config": null,
+  "workspaces": {},
+  "formats": {
+    "csv": {
+      "type": "text",
+      "extensions": [
+        "csv"
+      ],
+      "delimiter": ","
+    },
+    "tsv": {
+      "type": "text",
+      "extensions": [
+        "tsv"
+      ],
+      "delimiter": "\t"
+    },
+    "json": {
+      "type": "json",
+      "extensions": [
+        "json"
+      ]
+    },
+    "parquet": {
+      "type": "parquet"
+    },
+    "avro": {
+      "type": "avro"
+    },
+    "csvh": {
+      "type": "text",
+      "extensions": [
+        "csvh"
+      ],
+      "extractHeader": true,
+      "delimiter": ","
+    },
+    "image": {
+      "type": "image",
+      "extensions": [
+        "jpg",
+        "jpeg",
+        "jpe",
+        "tif",
+        "tiff",
+        "dng",
+        "psd",
+        "png",
+        "bmp",
+        "gif",
+        "ico",
+        "pcx",
+        "wav",
+        "wave",
+        "avi",
+        "webp",
+        "mov",
+        "mp4",
+        "m4a",
+        "m4p",
+        "m4b",
+        "m4r",
+        "m4v",
+        "3gp",
+        "3g2",
+        "eps",
+        "epsf",
+        "epsi",
+        "ai",
+        "arw",
+        "crw",
+        "cr2",
+        "nef",
+        "orf",
+        "raf",
+        "rw2",
+        "rwl",
+        "srw",
+        "x3f"
+      ]
+    }
+  },
+  "enabled": true
+}
